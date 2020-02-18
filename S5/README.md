@@ -150,4 +150,3 @@ Select Python 3 as the runtime type and GPU as the harware accelerator.
 
 - Shantanu Acharya (Canvas ID: 25180630)
 - Rakhee (Canvas ID: 25180625)
-- Vedapragna Aramati (Canvas ID: 25180631)
