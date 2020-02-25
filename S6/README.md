@@ -35,10 +35,6 @@ After model training, display 25 misclassified images for L1 and L2 models.
 
 ## Misclassified Images
 
-### Without L1 and L2 Regularization
-
-![plain](images/plain_incorrect_predictions.png)
-
 ### With L1 Regularization
 
 ![plain](images/l1_incorrect_predictions.png)
@@ -46,10 +42,6 @@ After model training, display 25 misclassified images for L1 and L2 models.
 ### With L2 Regularization
 
 ![plain](images/l2_incorrect_predictions.png)
-
-### With L1 and L2 Regularization
-
-![plain](images/l1_l2_incorrect_predictions.png)
 
 ## Project Setup
 
