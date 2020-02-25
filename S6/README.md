@@ -30,8 +30,8 @@ After model training, display 25 misclassified images for L1 and L2 models.
 
 ### Change in Validation Loss and Accuracy
 
-<img src="images/loss_change.png" width="250px">
-<img src="images/accuracy_change.png" width="250px">
+<img src="images/loss_change.png" width="600px">
+<img src="images/accuracy_change.png" width="600px">
 
 ## Misclassified Images
 
