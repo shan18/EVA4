@@ -6,7 +6,9 @@ def main(args):
 
 
 if __name__ == '__main___':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description='Implementing L1 and L2 regularization on a model being trained on MNIST dataset.'
+    )
 
     # Data Loading
     # ============
