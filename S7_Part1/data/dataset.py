@@ -2,15 +2,15 @@ from data.utils import download_mnist, calculate_mean_and_std
 from data.processing import transformations, data_loader
 
 
-def mnist_dataset(train, batch_size, cuda, num_workers, apply_augmentation, rotation_degree):
+def mnist_dataset(batch_size, cuda, num_workers, train=True, apply_augmentation=False, rotation_degree=0.0):
     """Download and create dataset.
 
     Args:
-        train: If True, download training data else test data.
-            Defaults to True.
         batch_size: Number of images to considered in each batch.
         cuda: True is GPU is available.
         num_workers: How many subprocesses to use for data loading.
+        train: If True, download training data else test data.
+            Defaults to True.
         apply_augmentation: Whether to apply data augmentation.
             Defaults to False.
         rotation_degree: Angle of rotation of images for image augmentation.
