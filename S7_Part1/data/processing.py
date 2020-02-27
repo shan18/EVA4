@@ -2,16 +2,16 @@ import torch
 from torchvision import transforms
 
 
-def transformations(mean, std, apply_augmentation=False, rotation_degree=0.0):
+def transformations(mean, std, augmentation=False, rotation=0.0):
     """Create data transformations
     
     Args:
         mean: Mean value for image normalization.
         std: Standard deviation value for image normalization.
-        apply_augmentation: Whether to apply data augmentation.
+        augmentation: Whether to apply data augmentation.
             Defaults to False.
-        rotation_degree: Angle of rotation for image augmentation.
-            Defaults to 0. It won't be needed if apply_augmentation is False.
+        rotation: Angle of rotation for image augmentation.
+            Defaults to 0. It won't be needed if augmentation is False.
     
     Returns:
         Transform object containing defined data transformations.
@@ -26,10 +26,10 @@ def transformations(mean, std, apply_augmentation=False, rotation_degree=0.0):
         transforms.Normalize((mean,), (std,))
     ]
 
-    if apply_augmentation:
+    if augmentation:
         transforms_list = [
             # Rotate image by 6 degrees
-            transforms.RandomRotation((-rotation_degree, rotation_degree), fill=(1,))
+            transforms.RandomRotation((-rotation, rotation), fill=(1,))
         ] + transforms_list
     
     return transforms.Compose(transforms_list)

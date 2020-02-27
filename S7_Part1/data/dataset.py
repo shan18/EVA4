@@ -2,7 +2,7 @@ from data.utils import download_mnist, calculate_mean_and_std
 from data.processing import transformations, data_loader
 
 
-def mnist_dataset(batch_size, cuda, num_workers, train=True, apply_augmentation=False, rotation_degree=0.0):
+def mnist_dataset(batch_size, cuda, num_workers, train=True, augmentation=False, rotation=0.0):
     """Download and create dataset.
 
     Args:
@@ -11,10 +11,10 @@ def mnist_dataset(batch_size, cuda, num_workers, train=True, apply_augmentation=
         num_workers: How many subprocesses to use for data loading.
         train: If True, download training data else test data.
             Defaults to True.
-        apply_augmentation: Whether to apply data augmentation.
+        augmentation: Whether to apply data augmentation.
             Defaults to False.
-        rotation_degree: Angle of rotation of images for image augmentation.
-            Defaults to 0. It won't be needed if apply_augmentation is False.
+        rotation: Angle of rotation of images for image augmentation.
+            Defaults to 0. It won't be needed if augmentation is False.
     
     Returns:
         Dataloader instance.
@@ -24,7 +24,7 @@ def mnist_dataset(batch_size, cuda, num_workers, train=True, apply_augmentation=
     mean, std = calculate_mean_and_std()
     if train:
         transforms = transformations(
-            mean, std, apply_augmentation, rotation_degree
+            mean, std, augmentation, rotation
         )
     else:
         transforms = transformations(mean, std)
