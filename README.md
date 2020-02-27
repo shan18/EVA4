@@ -18,3 +18,8 @@ To see the code go [here](S5/).
 
 Applying L1 and L2 regularization on the final model trained in Session 5.
 To see the code go [here](S6/).
+
+### Session 7 - Assignment 1
+
+Converting the code in Session 6 into a library where every part of the model is stored in a separate file. The main file should just contain the configuration parameters and call the approriate functions to train and test the model.
+To see the code go [here](S7_Part1/).
