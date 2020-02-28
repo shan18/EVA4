@@ -13,9 +13,12 @@ def initialize_cuda(seed):
 
     # Check CUDA availability
     cuda = torch.cuda.is_available()
-    print('CUDA Available?', cuda)
+    print('GPU Available?', cuda)
 
     # Initialize seed
     set_seed(seed, cuda)
 
-    return cuda
+    # Set device
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    return cuda, device

@@ -4,26 +4,43 @@ from utils.cuda import initialize_cuda
 from data.dataset import mnist_dataset
 
 
-def main(args):
-    # Initialize CUDA and set random seed
-    cuda = initialize_cuda(args.random_seed)
+def create_data_loaders(train_batch_size, val_batch_size, cuda, num_workers, augmentation, rotation):
+    """ Create training and validation dataset loaders. """
 
     # Create train data loader
     train_loader = mnist_dataset(
-        args.train_batch_size,
-        cuda, args.num_workers,
+        train_batch_size,
+        cuda,
+        num_workers,
         train=True,
-        augmentation=args.augmentation,
-        rotation=args.rotation
+        augmentation=augmentation,
+        rotation=rotation
     )
 
     # Create val data loader
     val_loader = mnist_dataset(
+        val_batch_size,
+        cuda,
+        num_workers,
+        train=False
+    )
+
+    return train_loader, val_loader
+
+
+def main(args):
+    # Initialize CUDA and set random seed
+    cuda, device = initialize_cuda(args.random_seed)
+
+    train_loader, val_loader = create_data_loaders(
+        args.train_batch_size,
         args.val_batch_size,
         cuda,
         args.num_workers,
-        train=False
+        args.augmentation,
+        args.rotation
     )
+
 
     print(train_loader)
     print(val_loader)
