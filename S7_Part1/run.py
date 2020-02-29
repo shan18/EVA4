@@ -1,6 +1,7 @@
-import argparse
-
-from utils.cuda import initialize_cuda
+from model.train import train
+from model.evaluate import val
+from model.network import Net
+from model.utils import sgd_optimizer, lr_scheduler, model_summary
 from data.dataset import mnist_dataset
 
 
@@ -28,50 +29,24 @@ def create_data_loaders(train_batch_size, val_batch_size, cuda, num_workers, aug
     return train_loader, val_loader
 
 
-def main(args):
-    # Initialize CUDA and set random seed
-    cuda, device = initialize_cuda(args.random_seed)
+def run_model(
+    device, train_loader, val_loader, epochs, learning_rate, momentum, dropout, step_size, gamma, l1=0.0, l2=0.0
+):
+    losses = []
+    accuracies = []
+    incorrect_samples = []
+    
+    print('\nCreating model')
+    model = Net(dropout).to(device)  # Create model
+    model_summary(model)  # Display model summary
 
-    train_loader, val_loader = create_data_loaders(
-        args.train_batch_size,
-        args.val_batch_size,
-        cuda,
-        args.num_workers,
-        args.augmentation,
-        args.rotation
-    )
+    optimizer = sgd_optimizer(model, learning_rate, l2, momentum)  # Create optimizer
+    scheduler = lr_scheduler(optimizer, step_size, gamma)  # Set LR scheduler
 
-
-    print(train_loader)
-    print(val_loader)
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Implementing L1 and L2 regularization on a model being trained on MNIST dataset.'
-    )
-
-    # Data Loading
-    # ============
-
-    parser.add_argument('--train_batch_size', type=int, default=64, help='Number of images per batch in training set')
-    parser.add_argument('--val_batch_size', type=int, default=64, help='Number of images per batch in validation set')
-    parser.add_argument('--num_workers', type=int, default=4, help='How many subprocesses to use for data loading')
-    parser.add_argument('--augmentation', type=bool, default=True, help='If True, apply data augmentation')
-    parser.add_argument('--rotation', type=float, default=6.0, help='Angle of rotation of images for image augmentation')
-
-    # Model
-    # =====
-
-    parser.add_argument('--dropout', type=float, default=0.01, help='Dropout rate')
-
-    # Training
-    # ========
-    parser.add_argument('--random_seed', type=int, default=1, help='Random seed value for result reproducibility')
-    parser.add_argument('--learning_rate', type=float, default=0.01, help='Learning rate for the optimizer')
-    parser.add_argument('--l1', type=float, default=0.001, help='Factor for L1 regularization')
-    parser.add_argument('--l2', type=float, default=0.0001, help='Factor for L2 regularization')
-
-    args = parser.parse_args()
-
-    main(args)
+    for epoch in range(1, epochs + 1):
+        print(f'Epoch {epoch}:')
+        train(model, device, train_loader, optimizer, epoch, l1)
+        scheduler.step()
+        val(model, device, val_loader, losses, accuracies, incorrect_samples)
+    
+    return losses, accuracies, incorrect_samples
