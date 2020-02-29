@@ -39,6 +39,12 @@ The goal of this assignment is to convert the code from the [previous](../S6/) s
 - Install the required packages  
   `$ pip install -r requirements.txt`
 
+- To run the model with default parameters  
+  `$ python main.py`
+
+To see more options for executing the model, run  
+ `$ python main.py --help`
+
 ## Group Members
 
 - Shantanu Acharya (Canvas ID: 25180630)
