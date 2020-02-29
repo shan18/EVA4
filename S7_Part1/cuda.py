@@ -19,6 +19,6 @@ def initialize_cuda(seed):
     set_seed(seed, cuda)
 
     # Set device
-    device = torch.device("cuda" if use_cuda else "cpu")
+    device = torch.device("cuda" if cuda else "cpu")
 
     return cuda, device
