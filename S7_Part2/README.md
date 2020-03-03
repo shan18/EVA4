@@ -27,8 +27,8 @@ The model has **94,218 parameters**.
 
 ## Change in Validation Loss and Accuracy
 
-<img src="images/loss_change.png" width="250px">
-<img src="images/accuracy_change.png" width="250px">
+<img src="images/loss_change.png" width="450px">
+<img src="images/accuracy_change.png" width="450px">
 
 ## Project Setup
 
