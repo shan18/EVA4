@@ -7,7 +7,11 @@ from data.processing import transformations, data_loader
 class CIFAR10:
     """ Load CIFAR-10 Dataset. """
 
-    def __init__(self, train_batch_size=1, val_batch_size=1, cuda=False, num_workers=1, path=None, augmentation=False, rotation=0.0):
+    def __init__(
+        self, train_batch_size=1, val_batch_size=1,
+        cuda=False, num_workers=1, path=None,
+        horizontal_flip=0.0, vertical_flip=0.0, rotation=0.0, random_erasing=0.0
+    ):
         """Initializes the dataset for loading.
 
         Args:
@@ -18,10 +22,14 @@ class CIFAR10:
             path: Path where dataset will be downloaded. Defaults to None.
                 If no path provided, data will be downloaded in a pre-defined
                 directory.
-            augmentation: Whether to apply data augmentation.
-                Defaults to False.
-            rotation: Angle of rotation of images for image augmentation.
-                Defaults to 0. It won't be needed if augmentation is False.
+            horizontal_flip: Probability of an image being horizontally flipped.
+                Defaults to 0.
+            vertical_flip: Probability of an image being vertically flipped.
+                Defaults to 0.
+            rotation: Angle of rotation for image augmentation.
+                Defaults to 0.
+            random_erasing: Probability that random erase will be performed.
+                Defaults to 0.
         """
         
         self.cuda = cuda
@@ -37,8 +45,10 @@ class CIFAR10:
         )
 
         # Set data augmentation parameters
-        self.augmentation = augmentation
+        self.horizontal_flip = horizontal_flip
+        self.vertical_flip = vertical_flip
         self.rotation = rotation
+        self.random_erasing = random_erasing
 
         # Set transforms
         self.train_transform = self._transform()
@@ -54,15 +64,16 @@ class CIFAR10:
         Args:
             train: If True, download training data else test data.
                 Defaults to True.
-            augmentation: Whether to apply data augmentation.
-                Defaults to False.
-            rotation: Angle of rotation of images for image augmentation.
-                Defaults to 0. It won't be needed if augmentation is False.
         
         Returns:
             Returns data transforms based on the training mode.
         """
-        return transformations(self.augmentation, self.rotation) if train else transformations()
+        return transformations(
+            horizontal_flip=self.horizontal_flip,
+            vertical_flip=self.vertical_flip,
+            rotation=self.rotation,
+            random_erasing=self.random_erasing
+        ) if train else transformations()
     
     def _download(self, train=True):
         """Download dataset.
@@ -73,7 +84,8 @@ class CIFAR10:
         Returns:
             Downloaded dataset.
         """
-        return download_cifar10(self.path, train=train, transform=self.train_transform)
+        transform = self.train_transform if train else self.val_transform
+        return download_cifar10(self.path, train=train, transform=transform)
     
     def classes(self):
         """ Return list of classes in the dataset. """

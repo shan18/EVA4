@@ -2,20 +2,33 @@ import torch
 from torchvision import transforms
 
 
-def transformations(augmentation=False, rotation=0.0):
+def transformations(horizontal_flip=0.0, vertical_flip=0.0, rotation=0.0, random_erasing=0.0):
     """Create data transformations
     
     Args:
-        augmentation: Whether to apply data augmentation.
-            Defaults to False.
+        horizontal_flip: Probability of an image being horizontally flipped.
+            Defaults to 0.
+        vertical_flip: Probability of an image being vertically flipped.
+            Defaults to 0.
         rotation: Angle of rotation for image augmentation.
-            Defaults to 0. It won't be needed if augmentation is False.
+            Defaults to 0.
+        random_erasing: Probability that random erase will be performed.
+            Defaults to 0.
     
     Returns:
         Transform object containing defined data transformations.
     """
 
-    transforms_list = [
+    transforms_list = []
+
+    if horizontal_flip > 0:  # Horizontal Flip
+        transforms_list += [transforms.RandomHorizontalFlip(horizontal_flip)]
+    if vertical_flip > 0:  # Vertical Flip
+        transforms_list += [transforms.RandomVerticalFlip(vertical_flip)]
+    if rotation > 0:  # Rotate image
+        transforms_list += [transforms.RandomRotation((-rotation, rotation), fill=(1,))]
+    
+    transforms_list += [
         # convert the data to torch.FloatTensor
         # with values within the range [0.0 ,1.0]
         transforms.ToTensor(),
@@ -26,11 +39,8 @@ def transformations(augmentation=False, rotation=0.0):
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ]
 
-    if augmentation:
-        transforms_list = [
-            # Rotate image by 6 degrees
-            transforms.RandomRotation((-rotation, rotation), fill=(1,))
-        ] + transforms_list
+    if random_erasing > 0:
+        transforms_list += [transforms.RandomErasing(random_erasing)]
     
     return transforms.Compose(transforms_list)
 
