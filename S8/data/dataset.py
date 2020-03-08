@@ -1,3 +1,5 @@
+import numpy as np
+
 from data.downloader import download_cifar10
 from data.processing import transformations, data_loader
 
@@ -71,20 +73,25 @@ class CIFAR10:
         """
         return download_cifar10(self.path, train=train, transform=self.train_transform)
     
-    def get_classes(self):
+    def classes(self):
         """ Return list of classes in the dataset. """
         return self.classes
     
-    def get_data(self, train=True):
+    def data(self, train=True):
         """ Return data based on train mode.
 
         Args:
             train: True for training data.
         
         Returns:
-            Training or validation data.
+            Training or validation data and targets.
         """
-        return self.train_data if train else self.val_data
+        data = self.train_data if train else self.val_data
+        return data.data, data.targets
+    
+    def input_size(self):
+        """ Return shape of data i.e. image size. """
+        return np.transpose(self.data()[0][0], (2, 0, 1)).shape
     
     def loader(self, train=True):
         """Create data loader.
