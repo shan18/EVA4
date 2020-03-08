@@ -7,11 +7,12 @@ from data.processing import transformations, data_loader
 class CIFAR10:
     """ Load CIFAR-10 Dataset. """
 
-    def __init__(self, batch_size=1, cuda=False, num_workers=1, path=None, augmentation=False, rotation=0.0):
+    def __init__(self, train_batch_size=1, val_batch_size=1, cuda=False, num_workers=1, path=None, augmentation=False, rotation=0.0):
         """Initializes the dataset for loading.
 
         Args:
-            batch_size: Number of images to consider in each batch.
+            train_batch_size: Number of images to consider in each batch in train set.
+            val_batch_size: Number of images to consider in each batch in validation set.
             cuda: True is GPU is available.
             num_workers: How many subprocesses to use for data loading.
             path: Path where dataset will be downloaded. Defaults to None.
@@ -26,10 +27,11 @@ class CIFAR10:
         self.cuda = cuda
         self.num_workers = num_workers
         self.path = path
-        self.batch_size = batch_size
+        self.train_batch_size = train_batch_size
+        self.val_batch_size = val_batch_size
 
         # Define classes present in the dataset
-        self.classes = (
+        self.class_values = (
             'plane', 'car', 'bird', 'cat', 'deer',
             'dog', 'frog', 'horse', 'ship', 'truck'
         )
@@ -75,7 +77,7 @@ class CIFAR10:
     
     def classes(self):
         """ Return list of classes in the dataset. """
-        return self.classes
+        return self.class_values
     
     def data(self, train=True):
         """ Return data based on train mode.
@@ -89,7 +91,7 @@ class CIFAR10:
         data = self.train_data if train else self.val_data
         return data.data, data.targets
     
-    def input_size(self):
+    def image_size(self):
         """ Return shape of data i.e. image size. """
         return np.transpose(self.data()[0][0], (2, 0, 1)).shape
     
@@ -104,7 +106,7 @@ class CIFAR10:
         """
 
         loader_args = {
-            'batch_size': self.batch_size,
+            'batch_size': self.train_batch_size if train else self.val_batch_size,
             'num_workers': self.num_workers,
             'cuda': self.cuda
         }
