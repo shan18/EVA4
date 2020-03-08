@@ -26,7 +26,7 @@ def transformations(horizontal_flip=0.0, vertical_flip=0.0, rotation=0.0, random
     if vertical_flip > 0:  # Vertical Flip
         transforms_list += [transforms.RandomVerticalFlip(vertical_flip)]
     if rotation > 0:  # Rotate image
-        transforms_list += [transforms.RandomRotation((-rotation, rotation), fill=(1,))]
+        transforms_list += [transforms.RandomRotation(rotation, fill=1)]
     
     transforms_list += [
         # convert the data to torch.FloatTensor
