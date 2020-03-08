@@ -23,3 +23,8 @@ To see the code go [here](S6/).
 
 Reaching a test accuracy of 80% on CIFAR-10 dataset using advanced convolutions.
 To see the code go [here](S7/).
+
+### Session 8
+
+Reaching an accuracy of 85% on CIFAR-10 dataset using ResNet18 model.
+To see the code go [here](S8/).
