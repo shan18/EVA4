@@ -68,8 +68,7 @@ def plot_predictions(data, classes, plot_title, plot_path):
     # Initialize plot
     row_count = -1
     fig, axs = plt.subplots(5, 5, figsize=(10, 10))
-    fig.tight_layout()
-    fig.title(plot_title)
+    fig.suptitle(plot_title)
 
     for idx, result in enumerate(data):
 
@@ -88,6 +87,10 @@ def plot_predictions(data, classes, plot_title, plot_path):
         axs[row_count][idx % 5].set_title(f'Label: {classes[label]}\nPrediction: {classes[prediction]}')
         axs[row_count][idx % 5].imshow(rgb_image)
     
+    # Set spacing
+    fig.tight_layout()
+    fig.subplots_adjust(top=0.88)
+
     # Save image
     fig.savefig(f'{plot_path}', bbox_inches='tight')
 
@@ -115,5 +118,5 @@ def save_and_show_result(correct_pred, incorrect_pred, classes):
 
     # Plot incorrect predicitons
     plot_predictions(
-        incorrect_pred, classes, 'Incorrect Predictions', f'{path}/incorrect_predictions.png'
+        incorrect_pred, classes, '\nIncorrect Predictions', f'{path}/incorrect_predictions.png'
     )
