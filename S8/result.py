@@ -56,7 +56,7 @@ def plot_metric(values, metric):
     fig.savefig(f'{metric.lower()}_change.png')
 
 
-def plot_predictions(data, classes, plot_path):
+def plot_predictions(data, classes, plot_title, plot_path):
     """Display data.
 
     Args:
@@ -69,6 +69,7 @@ def plot_predictions(data, classes, plot_path):
     row_count = -1
     fig, axs = plt.subplots(5, 5, figsize=(10, 10))
     fig.tight_layout()
+    fig.title(plot_title)
 
     for idx, result in enumerate(data):
 
@@ -108,7 +109,11 @@ def save_and_show_result(correct_pred, incorrect_pred, classes):
         os.makedirs(path)
     
     # Plot correct predicitons
-    plot_predictions(correct_pred, classes, f'{path}/correct_predictions.png')
+    plot_predictions(
+        correct_pred, classes, 'Correct Predictions', f'{path}/correct_predictions.png'
+    )
 
     # Plot incorrect predicitons
-    plot_predictions(incorrect_pred, classes, f'{path}/incorrect_predictions.png')
+    plot_predictions(
+        incorrect_pred, classes, 'Incorrect Predictions', f'{path}/incorrect_predictions.png'
+    )
