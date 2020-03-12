@@ -1,4 +1,4 @@
-# Session 5 - MNIST 99.4% Test Accuracy with less than 10,000 Parameters
+# Session 5 - Coding Drill Down
 
 The goal of this assignment is to reach a test accuracy of **99.4%** on the _MNIST test dataset_ with a model having following configurations:
 
