@@ -88,15 +88,17 @@ class GradCAMView:
         Returns:
             Dictionary containing unnormalized image, heatmap and CAM result.
         """
-        image = unnormalize(norm_image, self.mean, self.std)
         norm_image_cuda = norm_image.clone().unsqueeze_(0).to(self.device)
         heatmap, result = {}, {}
         for layer, gc in self.gradcam.items():
             mask, _ = gc(norm_image_cuda)
-            cam_heatmap, cam_result = visualize_cam(mask, image)
+            cam_heatmap, cam_result = visualize_cam(
+                mask,
+                unnormalize(norm_image, self.mean, self.std, out_type='tensor').clone().unsqueeze_(0).to(self.device)
+            )
             heatmap[layer], result[layer] = to_numpy(cam_heatmap), to_numpy(cam_result)
         return {
-            'image': image,
+            'image': unnormalize(norm_image, self.mean, self.std),
             'heatmap': heatmap,
             'result': result
         }

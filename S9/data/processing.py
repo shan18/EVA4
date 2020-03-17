@@ -41,22 +41,18 @@ class Transformations:
                 transforms_list += [A.GaussianBlur(p=gaussian_blur_prob)]
             if rotate_degree > 0:  # Rotate image
                 transforms_list += [A.Rotate(limit=rotate_degree)]
+            if cutout > 0:  # CutOut
+                transforms_list += [A.CoarseDropout(
+                    p=cutout, max_holes=1, fill_value=tuple([x * 255.0 for x in mean]),
+                    max_height=cutout_height, max_width=cutout_width, min_height=1, min_width=1
+                )]
         
         transforms_list += [
             # normalize the data with mean and standard deviation to keep values in range [-1, 1]
             # since there are 3 channels for each image,
             # we have to specify mean and std for each channel
-            A.Normalize(mean=mean, std=std, always_apply=True)
-        ]
-
-        if train:
-            if cutout > 0:  # CutOut
-                transforms_list += [A.CoarseDropout(
-                    p=cutout, max_holes=1, fill_value=mean,
-                    max_height=cutout_height, max_width=cutout_width, min_height=1, min_width=1
-                )]
-
-        transforms_list += [
+            A.Normalize(mean=mean, std=std, always_apply=True),
+            
             # convert the data to torch.FloatTensor
             # with values within the range [0.0 ,1.0]
             ToTensor()

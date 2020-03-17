@@ -22,7 +22,7 @@ def unnormalize(image, mean, std, out_type='array'):
     
     normal_image = image * std + mean
     if out_type == 'tensor':
-        return torch.Tensor(np.transpose(normal_image), (2, 0, 1))
+        return torch.Tensor(np.transpose(normal_image, (2, 0, 1)))
     elif out_type == 'array':
         return normal_image
     return None  # No valid value given
