@@ -1,6 +1,6 @@
 # Session 9 - Data Augmentation and Grad Cam
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]()
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ckckI9yP0TJtXe7m59H4Tak5OmlPXy2c)
 
 The model reaches a maximum accuracy of **--%** in **-- epochs** on CIFAR-10 dataset using **ResNet-18** model.
 
