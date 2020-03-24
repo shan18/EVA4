@@ -33,3 +33,8 @@ To see the code go [here](S8/).
 
 Reaching a test accuracy of 87% on CIFAR-10 dataset with ResNet18 model using Grad Cam and various data augmentation techniques.
 To see the code go [here](S9/).
+
+### LR Finder and Reduce LR on Plateau
+
+Reaching a test accuracy of 88% on CIFAR-10 dataset with ResNet18 model using LR Finder and Reduce LR on Plateau.
+To see the code go [here](S10/).
