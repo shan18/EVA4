@@ -7,7 +7,8 @@ The model reaches a maximum accuracy of **91.11%** on CIFAR-10 dataset using **R
 **LR Finder and Reduce LR on Plateau** was implemented for model training.
 
 The model uses the library **TensorNet** to train the model. The library can be installed by running the following command  
-`pip install torch-tensornet==0.0.7`
+`pip install torch-tensornet==0.0.7`  
+The source code for the library can be found [here](https://github.com/shan18/TensorNet).
 
 ### Parameters and Hyperparameters
 
