@@ -38,3 +38,8 @@ To see the code go [here](S9/).
 
 Reaching a test accuracy of 88% on CIFAR-10 dataset with ResNet18 model using LR Finder and Reduce LR on Plateau.
 To see the code go [here](S10/).
+
+### Super Convergence
+
+Reaching a test accuracy of 90% on CIFAR-10 dataset custom ResNet model using One Cycle Policy for Learning Rate.
+To see the code go [here](S11/).
