@@ -9,6 +9,7 @@ class CyclicLR:
         self.step_size = step_size
         self.iterations = num_iterations
         self.lr = []
+        self.pad_factor = lr_max / 10
 
     def cycle(self, iteration):
         return int(1 + (iteration / (2 * self.step_size)))
@@ -40,11 +41,11 @@ class CyclicLR:
 
         # Plot max lr line
         plt.axhline(self.lr_max, 0.03, 0.97, label='max_lr', color='y')
-        plt.text(0, self.lr_max + 0.01, 'max_lr')
+        plt.text(0, self.lr_max + self.pad_factor, 'max_lr')
 
         # Plot min lr line
         plt.axhline(self.lr_min, 0.03, 0.97, label='min_lr', color='y')
-        plt.text(0, self.lr_min - 0.01, 'min_lr')
+        plt.text(0, self.lr_min - self.pad_factor, 'min_lr')
 
         # Plot lr change
         plt.plot(self.lr)

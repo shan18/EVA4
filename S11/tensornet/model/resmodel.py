@@ -9,7 +9,7 @@ from tensornet.model.resnet import BasicBlock
 class ResidualBlock(nn.Module):
 
     def __init__(self, in_planes, planes, res_block=None):
-        super(Block, self).__init__()
+        super(ResidualBlock, self).__init__()
 
         self.layer = self._make_layer(in_planes, planes)
         self.res_block = None
