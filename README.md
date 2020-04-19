@@ -43,3 +43,8 @@ To see the code go [here](S10/).
 
 Reaching a test accuracy of 90% on CIFAR-10 dataset custom ResNet model using One Cycle Policy for Learning Rate.
 To see the code go [here](S11/).
+
+### Tiny-ImageNet and YOLO v2 Anchor Boxes
+
+Reaching a test accuracy of 50% on Tiny-ImageNet dataset with ResNet18 model and finding the anchor boxes for YOLO v2 using K-Means Clustering algorithm.
+To see the code go [here](S12/).
