@@ -7,14 +7,24 @@
 Detecting objects in an image where there is a person and an object present in the image.  
 _Note_: The object should be present in the COCO classes.
 
+### Result
+
+<p style='text-align:center;'>
+  <img src="images/img_opencv.jpg" />
+</p>
+
 ## Part 2 - YOLO v3 with PyTorch
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Yq6VL8uqf18-1wZzerHLn5k-ey4MuTbx)
 
 Object detection with Yolo v3 using transfer learning on a class that doesn't belong to COCO dataset.
 
-Class selected: **LEGO Batman**  
-Result: [https://www.youtube.com/watch?v=AZXHEDufQmM](https://www.youtube.com/watch?v=AZXHEDufQmM)
+Class selected: **LEGO Batman**
+
+### Result
+
+Click on the video below to play  
+[![](http://img.youtube.com/vi/AZXHEDufQmM/0.jpg)](http://www.youtube.com/watch?v=AZXHEDufQmM 'LEGO Batman Detection with YOLO V3')
 
 ### Parameters and Hyperparameters
 
@@ -39,7 +49,7 @@ For using the LEGO Batman dataset, follow the instructions mentioned [here](Yolo
 #### Test Data
 
 - Download a short-duration video containing the class used during training.
-- Extract frames from the video into the [test](<(YoloV3/data/test)>) directory  
+- Extract frames from the video into the [test](YoloV3/data/test) directory  
   `ffmpeg -i video.mp4 data/test/img%3d.jpg`
 - Extract audio from the video (this audio will be required later)  
   `ffmpeg -i video.mp4 -f mp3 -ab 192000 -vn audio.mp3`
@@ -63,6 +73,7 @@ After running the algorithm for 300 epochs, the result is pretty amazing!
   <img src="images/img350.jpg" width="400" />
   <img src="images/img022.jpg" width="400" />
   <img src="images/img577.jpg" width="400" />
+  <img src="images/img221.jpg" width="400" />
 </p>
 
 ## Group Members

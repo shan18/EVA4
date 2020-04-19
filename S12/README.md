@@ -1,4 +1,4 @@
-# Session 11 - Tiny ImageNet and YOLO v2 Anchor Boxes
+# Session 12 - Tiny ImageNet and YOLO v2 Anchor Boxes
 
 ## Part 1 - ResNet18 on Tiny ImageNet Dataset
 
