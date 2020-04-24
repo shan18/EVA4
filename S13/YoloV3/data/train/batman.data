@@ -1,0 +1,4 @@
+classes=1
+train=data/train/batman.txt
+valid=data/train/batman.txt
+names=data/batman.names
