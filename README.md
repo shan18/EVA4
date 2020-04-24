@@ -48,3 +48,8 @@ To see the code go [here](S11/).
 
 Reaching a test accuracy of 50% on Tiny-ImageNet dataset with ResNet18 model and finding the anchor boxes for YOLO v2 using K-Means Clustering algorithm.
 To see the code go [here](S12/).
+
+### Object Detection with YOLO v3
+
+Using transfer learning to detect a custom object using YOLO v3.
+To see the code go [here](S13/).

@@ -1,4 +1,5 @@
 runs/
+*.mp4
 YoloV3/data/train/images/*
 YoloV3/data/train/labels/*
 YoloV3/data/test/*
