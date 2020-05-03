@@ -22,7 +22,7 @@ def load_images(images_list):
     return np.stack(loaded_images, axis=0)
 
 
-def predict(model, images, minDepth=10, maxDepth=1000, batch_size=2):
+def predict(model, images, minDepth=10, maxDepth=1000, batch_size=100):
     # Support multiple RGBs, one RGB image, even grayscale 
     if len(images.shape) < 3:
         images = np.stack((images, images, images), axis=2)
@@ -57,7 +57,7 @@ def save_output(outputs, path, name_list):
         output_img.save(os.path.join(path, f'{name_list[idx]}.jpeg'))
 
 
-def depth_map(model_path, input_path):
+def depth_map(model_path, input_path, batch_size=100):
     # Custom object needed for inference and training
     custom_objects = {
         'BilinearUpSampling2D': BilinearUpSampling2D,
@@ -77,7 +77,7 @@ def depth_map(model_path, input_path):
 
     # Compute results
     print('\nPredicting depth maps...')
-    outputs = predict(model, inputs)
+    outputs = predict(model, inputs, batch_size=batch_size)
 
     # Save Results
     output_path = os.path.join(
