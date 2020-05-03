@@ -6,6 +6,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '5'
 from PIL import Image
 from skimage.transform import resize
 from keras.models import load_model
+from tqdm.autonotebook import tqdm
 
 from densedepth.layers import BilinearUpSampling2D
 
@@ -40,21 +41,29 @@ def predict(model, images, minDepth=10, maxDepth=1000, batch_size=100):
     ) / maxDepth
 
 
-def to_multichannel(i):
-    if i.shape[2] == 3:
-        return i
-    i = i[:, :, 0]
-    return np.stack((i, i, i), axis=2)
-
-
 def save_output(outputs, path, name_list):
-    if not os.path.exists(path):
-        os.makedirs(path)
     for idx, output in enumerate(outputs):
         output_img = Image.fromarray(
-            (to_multichannel(output) * 255).astype(np.uint8)
+            (output[:, :, 0] * 255).astype(np.uint8)
         )
         output_img.save(os.path.join(path, f'{name_list[idx]}.jpeg'))
+
+
+def predict_batch(model, images_list, input_path, output_path, batch_size):
+    # Load images
+    inputs = load_images([
+        os.path.join(input_path, x)
+        for x in images_list
+    ])
+
+    # Compute Results
+    outputs = predict(model, inputs, batch_size=batch_size)
+
+    # Save Results
+    save_output(outputs, output_path, [
+        os.path.splitext(x)[0]
+        for x in images_list
+    ])
 
 
 def depth_map(model_path, input_path, batch_size=100):
@@ -64,26 +73,35 @@ def depth_map(model_path, input_path, batch_size=100):
         'depth_loss_function': None
     }
 
-    print('Loading model...')
-
     # Load model into GPU / CPU
+    print('Loading model...')
     model = load_model(model_path, custom_objects=custom_objects, compile=False)
     print(f'\nModel loaded ({model_path}).')
 
-    # Input images
-    images_list = os.listdir(input_path)
-    inputs = load_images([os.path.join(input_path, x) for x in images_list])
-    print(f'\nLoaded ({inputs.shape[0]}) images of size {inputs.shape[1:]}.')
-
-    # Compute results
-    print('\nPredicting depth maps...')
-    outputs = predict(model, inputs, batch_size=batch_size)
-
-    # Save Results
     output_path = os.path.join(
-        os.path.dirname(input_path), os.path.basename(input_path) + '_depth_mask'
+        os.path.dirname(input_path), os.path.basename(input_path) + '_depth_map'
     )
-    save_output(outputs, output_path, [
-        os.path.splitext(x)[0] for x in images_list
-    ])
-    print(f'Predictions saved in {output_path}')
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
+    # Get list of input images
+    # This will also discard the images which have already been predicted and
+    # are present in output_path
+    images_list = list(
+        set(os.listdir(input_path)) - set(os.listdir(output_path))
+    )
+
+    print('\nPredicting depth maps...')
+    if len(images_list) > 0:
+        if len(images_list) > batch_size:
+            for batch_idx in tqdm(range(0, len(images_list), batch_size)):
+                predict_batch(
+                    model, images_list[batch_idx:batch_idx + batch_size],
+                    input_path, output_path, batch_size
+                )
+        else:
+            predict_batch(model, images_list, input_path, output_path, len(images_list))
+    
+        print(f'Predictions saved in {output_path}')
+    else:
+        print(f'All the images have already been predicted and saved in {output_path}')
