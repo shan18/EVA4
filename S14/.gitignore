@@ -1,3 +1,4 @@
 detectron2
 dataset
 *.h5
+modest_museum_dataset

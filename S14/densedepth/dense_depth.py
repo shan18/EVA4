@@ -66,7 +66,7 @@ def predict_batch(model, images_list, input_path, output_path, batch_size):
     ])
 
 
-def depth_map(model_path, input_path, batch_size=100):
+def load_densenet(model_path):
     # Custom object needed for inference and training
     custom_objects = {
         'BilinearUpSampling2D': BilinearUpSampling2D,
@@ -78,6 +78,10 @@ def depth_map(model_path, input_path, batch_size=100):
     model = load_model(model_path, custom_objects=custom_objects, compile=False)
     print(f'\nModel loaded ({model_path}).')
 
+    return model
+
+
+def depth_map(model, input_path, batch_size=100):
     output_path = os.path.join(
         os.path.dirname(input_path), os.path.basename(input_path) + '_depth_map'
     )
