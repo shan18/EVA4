@@ -345,7 +345,7 @@ The steps for calculation of bounding box for each image is described in [this](
 
 ## YouTube Video
 
-[![](http://img.youtube.com/vi/AZXHEDufQmM/0.jpg)](https://youtu.be/ibYN400SCW4 'Object Segmentation with Detectron 2')
+[![](http://img.youtube.com/vi/ibYN400SCW4/0.jpg)](https://youtu.be/ibYN400SCW4 'Object Segmentation with Detectron 2')
 
 
 ## Group Members
