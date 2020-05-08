@@ -346,5 +346,5 @@ The steps for calculation of bounding box for each image is described in [this](
 
 ## Group Members
 
-- Rakhee (Canvas ID: 25180625)
 - Shantanu Acharya (Canvas ID: 25180630)
+- Rakhee (Canvas ID: 25180625)
