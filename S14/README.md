@@ -343,6 +343,10 @@ The steps for calculation of bounding box for each image is described in [this](
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1g7QMYmzIWktw3eDViSkZijhVNmX5AFed?usp=sharing)
 
+## YouTube Video
+
+[![](http://img.youtube.com/vi/AZXHEDufQmM/0.jpg)](https://youtu.be/ibYN400SCW4 'Object Segmentation with Detectron 2')
+
 
 ## Group Members
 
