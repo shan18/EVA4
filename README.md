@@ -58,3 +58,8 @@ To see the code go [here](S13/).
 
 Creating a dataset with 400,000 images for image segmentation and depth estimation.
 To see the code go [here](S14/).
+
+### Image Segmentation and Depth Estimation
+
+Creating a model which can perform image segmentation and depth estimation on a custom dataset.
+To see the code go [here](S15/).
