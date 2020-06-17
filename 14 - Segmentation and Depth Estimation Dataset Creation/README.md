@@ -1,4 +1,4 @@
-# MOnocular Depth Estimation and SegmenTation (MODEST) Museum Dataset
+# Session 14 - MOnocular Depth Estimation and SegmenTation (MODEST) Museum Dataset
 
 Google Drive Link: https://drive.google.com/open?id=15cmtEneHL-Nx8aRE59cfp35Au6qufvIh  
 Kaggle Link: https://www.kaggle.com/shanwizard/modest-museum-dataset
