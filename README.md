@@ -1,4 +1,4 @@
-# TSAI%20-%20Extensive Vision AI 4
+# TSAI - Extensive Vision AI 4
 
 This repository contains the solutions to the assignments of the **EVA4** course conducted by _The School of AI_.
 
